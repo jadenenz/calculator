@@ -68,8 +68,8 @@ let clickedOperator;
 
 function storeVariable(operator){
   firstNumber = getTextContent();
-  console.log('operator: %o', operator);
-  console.log('operator', operator);
+  // console.log('operator: %o', operator);
+  // console.log('operator', operator);
   switch (operator) {
     case "+":
       clickedOperator = "+";
@@ -149,5 +149,5 @@ btnequals.addEventListener('click', function(){
 })
 
 
-// plug in the operator clicked as the operator in the function
-// use current textContent for num2 in function
+//If clickedOperator has a value stored in it when an operator is clicked,
+//operate with firstNumber clikedOperator and textContent
