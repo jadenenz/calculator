@@ -3,6 +3,7 @@ function getTextContent(){
 }
 
 function setTextContent(something){
+  console.log(something);
   document.getElementById('calcDisplay').textContent = something;
 }
 
@@ -42,6 +43,10 @@ function operate(num1, operator, num2) {
         case "/":
            return divide(Number(num1),Number(num2));
             break;
+        case "0":
+            console.log('case0 reached');
+            return getTextContent();;
+            break;
         default:
             console.log('Erorr');
     }
@@ -49,9 +54,7 @@ function operate(num1, operator, num2) {
 
 function modifyDisplayNumber(num) {
     displayNumber = num;
-    //document.getElementById('calcDisplay').textContent = displayNumber; //this functions
-    //displayNumber == '0' ? document.getElementById('calcDisplay').textContent = displayNumber : document.getElementById('calcDisplay').textContent.concat(num); //If display number is zero, replace it. If it's not 0, concatenate.
-    if (document.getElementById('calcDisplay').textContent == '0'){
+    if ((document.getElementById('calcDisplay').textContent == '0') || (operatorBoolean == true)){
       document.getElementById('calcDisplay').textContent = displayNumber;
     } else {
       document.getElementById('calcDisplay').textContent += displayNumber;
@@ -61,6 +64,11 @@ function modifyDisplayNumber(num) {
 function clearDisplay(){
   displayNumber = '0';
   document.getElementById('calcDisplay').textContent = displayNumber;
+}
+
+function clearVariables(){
+  firstNumber = 0;
+  clickedOperator = "0";
 }
 
 let firstNumber;
@@ -88,6 +96,7 @@ function storeVariable(operator){
   }
 }
 
+let operatorBoolean;
 let displayNumber = "0";
 document.getElementById('calcDisplay').textContent = displayNumber;
 const btn1 = document.getElementById('btn1');
@@ -95,59 +104,115 @@ const btn2 = document.getElementById('btn2');
 
 btn1.addEventListener('click', function(){
     modifyDisplayNumber("1")
+    operatorBoolean = false;
 });
 btn2.addEventListener('click', function(){
     modifyDisplayNumber("2")
+    operatorBoolean = false;
+
 });
 btn3.addEventListener('click', function(){
   modifyDisplayNumber("3")
+  operatorBoolean = false;
+
 });
 btn4.addEventListener('click', function(){
   modifyDisplayNumber("4")
+  operatorBoolean = false;
+
 });
 btn5.addEventListener('click', function(){
   modifyDisplayNumber("5")
+  operatorBoolean = false;
+
 });
 btn6.addEventListener('click', function(){
   modifyDisplayNumber("6")
+  operatorBoolean = false;
+
 });
 btn7.addEventListener('click', function(){
   modifyDisplayNumber("7")
+  operatorBoolean = false;
+
 });
 btn8.addEventListener('click', function(){
   modifyDisplayNumber("8")
+  operatorBoolean = false;
+
 });
 btn9.addEventListener('click', function(){
   modifyDisplayNumber("9")
+  operatorBoolean = false;
+
 });
 btn0.addEventListener('click', function(){
   modifyDisplayNumber("0")
+  operatorBoolean = false;
+
 });
 btnclear.addEventListener('click', function(){
   clearDisplay();
+  clearVariables();
 });
 btnplus.addEventListener('click', function(){
-  storeVariable('+')
-  clearDisplay();
+  operatorBoolean = true;
+  if ((clickedOperator !== "0") && (typeof clickedOperator !== 'undefined')){
+    const result = operate(firstNumber,clickedOperator,getTextContent())
+    console.log(result);
+    setTextContent(Math.round(result * 100) / 100);
+    storeVariable('+')
+  } else {
+    storeVariable('+')
+    clearDisplay();
+  }
 });
 btnminus.addEventListener('click', function(){
-  storeVariable('-')
-  clearDisplay();
+  operatorBoolean = true;
+  if ((clickedOperator !== "0") && (typeof clickedOperator !== 'undefined')){
+    const result = operate(firstNumber,clickedOperator,getTextContent())
+    console.log(result);
+    setTextContent(Math.round(result * 100) / 100);
+    storeVariable('-')
+  } else {
+    storeVariable('-')
+    clearDisplay();
+  }
 });
 btndivide.addEventListener('click', function(){
-  storeVariable('/')
-  clearDisplay();
+  operatorBoolean = true;
+  if ((clickedOperator !== "0") && (typeof clickedOperator !== 'undefined')){
+    const result = operate(firstNumber,clickedOperator,getTextContent())
+    console.log(result);
+    setTextContent(Math.round(result * 100) / 100);
+    storeVariable('/')
+  } else {
+    storeVariable('/')
+    clearDisplay();
+  }
 });
 btntimes.addEventListener('click', function(){
-  storeVariable('*')
-  clearDisplay();
+  operatorBoolean = true;
+  if ((clickedOperator !== "0") && (typeof clickedOperator !== 'undefined')){
+    const result = operate(firstNumber,clickedOperator,getTextContent())
+    console.log(result);
+    setTextContent(Math.round(result * 100) / 100);
+    storeVariable('*')
+  } else {
+    storeVariable('*')
+    clearDisplay();
+  }
 });
 btnequals.addEventListener('click', function(){
  const result = operate(firstNumber,clickedOperator,getTextContent())
- setTextContent(result);
+ if (result !== 'undefined'){
+  setTextContent(Math.round(result * 100) / 100);
+ } else {
+   console.log('it hit it hit');
+   setTextContent('0');
+ }
  console.log('result:',result);
 })
 
 
-//If clickedOperator has a value stored in it when an operator is clicked,
-//operate with firstNumber clikedOperator and textContent
+// need to set up rounding and then style it and its done I think.
