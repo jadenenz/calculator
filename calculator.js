@@ -204,6 +204,7 @@ btntimes.addEventListener('click', function(){
   }
 });
 btnequals.addEventListener('click', function(){
+  operatorBoolean = true;
  const result = operate(firstNumber,clickedOperator,getTextContent())
  if (result !== 'undefined'){
   setTextContent(Math.round(result * 100) / 100);

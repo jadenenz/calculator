@@ -3,7 +3,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: slategray
+    background-color: slategray;
+    overflow-x: hidden;
 }
 
 h1 {
